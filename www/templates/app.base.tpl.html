@@ -1,0 +1,33 @@
+<ion-side-menus enable-menu-with-back-views="true">
+
+  <ion-side-menu side="left" is-enabled="true" class="main-sidemenu">
+    <div class="profile-pic">
+      <div class="user-img">
+        <img src="img/avatar.jpg" alt="" />
+      </div>
+      <div class="user-name" ng-bind="$root.bumblebee_session.name">
+        Harshil Shah
+      </div>
+    </div>
+    <div class="list sidemenu-list">
+
+      <a menu-toggle class="item item-icon-left" href="" ng-click="gotoDashboard()">
+        <i class="icon ion-ios-home"></i>
+        Home
+      </a>
+
+      <a menu-toggle class="item item-icon-left" href="" ng-click="logout()">
+        <i class="icon ion-log-out"></i>
+        Logout
+      </a>
+
+
+    </div>
+  </ion-side-menu>
+
+  <ion-side-menu-content>
+  <!-- Main content, usually <ion-nav-view> -->
+    <ion-nav-view></ion-nav-view>
+  </ion-side-menu-content>
+
+</ion-side-menus>
