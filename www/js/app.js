@@ -23,6 +23,11 @@
       url: '/dashboard',
       templateUrl: 'templates/dashboard.tpl.html',
       controller: 'DashboardController'
+    })
+    .state("intro-slider",{
+      url: '/intro-slider',
+      templateUrl: 'templates/intro-slider.tpl.html',
+      controller: 'IntroSliderController'
     });
 
     // Instead

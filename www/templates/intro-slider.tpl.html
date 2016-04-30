@@ -1,0 +1,22 @@
+<ion-slide-box style="height:93%" on-slide-changed="slideChanged($index)">
+  <ion-slide style="background-color:blue;">
+    <h3>Use one password to manage all secure information</h3>
+  </ion-slide>
+  <ion-slide style="background-color:green;">
+    <h3>Store all your passwords and secure notes to access them from anywhere</h3>
+  </ion-slide>
+  <ion-slide style="background-color:red;">
+    <h3>Your data is automatically synced to the cloud</h3>
+  </ion-slide>
+</ion-slide-box>
+
+<ion-footer-bar align-title="center" class="bar-assertive">
+  <div class="buttons">
+    <button class="button" ng-click="previousSlide()">Previous</button>
+  </div>
+  <h1 class="title" ng-click="skipIntro()">Skip</h1>
+  <div class="buttons">
+    <button class="button" ng-click="nextSlide()" ng-if="slideIndex != 2">Next</button>
+    <button class="button" ng-click="getStarted()" ng-if="slideIndex == 2">Get Started</button>
+  </div>
+</ion-footer-bar>
