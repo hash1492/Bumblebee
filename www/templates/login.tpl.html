@@ -1,6 +1,15 @@
-<h2>Login</h2>
-<div class="list list-inset">
-  <label class="item item-input">
-    <input type="password" placeholder="Master Password">
-  </label>
-</div>
+<form name="myForm">
+  <h2>Login</h2>
+  <div class="list list-inset">
+    <label class="item item-input">
+      <input type="email" ng-model="user.email" placeholder="Email" required>
+    </label>
+    <label class="item item-input">
+      <input type="password" ng-model="user.password" placeholder="Master Password" required ng-minlength="6">
+    </label>
+
+    <button class="button button-positive" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="login()">
+      Login
+    </button>
+  </div>
+</form>

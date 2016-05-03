@@ -28,6 +28,11 @@
       url: '/intro-slider',
       templateUrl: 'templates/intro-slider.tpl.html',
       controller: 'IntroSliderController'
+    })
+    .state("register",{
+      url: '/register',
+      templateUrl: 'templates/register.tpl.html',
+      controller: 'RegisterController'
     });
 
     // Instead
@@ -54,5 +59,7 @@
       }
     });
   });
+
+  app.constant("REST_BASE_URL","http://localhost:1337");
 
 })();

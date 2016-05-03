@@ -18,17 +18,25 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
+    <!-- PouchDB -->
+    <script src="lib/pouchdb/dist/pouchdb.min.js"></script>
+
     <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
 
 
+    <script src="service/pouchdb.service.js"></script>
+    <script src="service/general.service.js"></script>
+    <script src="dataservice/general.data.service.js"></script>
 
     <script src="templates/app.base.ctrl.js"></script>
     <script src="templates/intro-slider.ctrl.js"></script>
     <script src="templates/login.ctrl.js"></script>
     <script src="templates/dashboard.ctrl.js"></script>
+    <script src="templates/register.ctrl.js"></script>
+
   </head>
   <body ng-app="bumblebee">
 
