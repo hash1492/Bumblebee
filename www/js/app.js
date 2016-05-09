@@ -61,6 +61,12 @@
       templateUrl: 'templates/view-password.tpl.html',
       controller: 'ViewPasswordController',
       cache: false
+    })
+    .state("app.password-generator",{
+      url: '/password-generator',
+      templateUrl: 'templates/password-generator.tpl.html',
+      controller: 'PasswordGeneratorController',
+      cache: false
     });
 
     // Instead

@@ -43,6 +43,10 @@
       $state.go("register");
     };
 
+    $scope.gotoPasswordGenerator = function() {
+      $state.go("app.password-generator");
+    };
+
   }]);
 
 })();
