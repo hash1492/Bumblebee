@@ -2,29 +2,46 @@
 
   var app = angular.module('bumblebee');
 
-  app.controller('AppBaseController',['$scope', function($scope, pouchdb) {
+  app.controller('AppBaseController',['$scope','pouchdb','StorageService','$state','$ionicHistory',
+   function($scope, pouchdb, StorageService, $state, $ionicHistory) {
 
-    // var dbLocal = new PouchDB('bumblebee');
-    //
-    // var dbRemote = new PouchDB('https://hash1492.cloudant.com/bumblebee');
-    //
-    // dbLocal.post({abc: "test"})
-    // .then(function (response) {
-    //   console.log(response);
-    //   dbLocal.allDocs({
-    //         include_docs: true
-    //     }).then(function(result) {
-    //        console.log(result);
-    //     }).catch(function(err) {
-    //         console.log(err);
-    //     });
-    // }).catch(function (err) {
-    //     console.log(err);
-    // });
-    //
-    // dbLocal.replicate.to(dbRemote,{live:true},function(err){
-    //   console.log(err);
-    // });
+     if(!StorageService.get("bumblebee_session")){
+       $state.go("login");
+       return;
+     }
+
+    $scope.logout = function() {
+      StorageService.delete("bumblebee_session");
+      $state.go("login");
+    };
+
+    $scope.gotoPasswordsList = function() {
+      $state.go("app.passwords-list");
+    };
+
+    $scope.gotoAddPassword = function () {
+      $state.go("app.add-password");
+    };
+
+    $scope.gotoUpdatePassword = function (password_id) {
+      $state.go("app.update-password", {password_id: password_id});
+    };
+
+    $scope.gotoViewPassword = function(password_id) {
+      $state.go("app.view-password",{password_id: password_id});
+    };
+
+    $scope.goBack = function() {
+      $ionicHistory.goBack();
+    };
+
+    $scope.gotoLogin = function() {
+      $state.go("login");
+    };
+
+    $scope.gotoRegister = function() {
+      $state.go("register");
+    };
 
   }]);
 

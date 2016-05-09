@@ -1,7 +1,7 @@
 <form name="myForm">
   <h2>Login</h2>
   <div class="list list-inset">
-    <label class="item item-input">
+    <label class="item item-input" ng-if="!logged_in">
       <input type="email" ng-model="user.email" placeholder="Email" required>
     </label>
     <label class="item item-input">
@@ -11,5 +11,7 @@
     <button class="button button-positive" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="login()">
       Login
     </button>
+
+    <a href="" ng-click="gotoRegister()">New user?</a>
   </div>
 </form>

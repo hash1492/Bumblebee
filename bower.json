@@ -6,7 +6,10 @@
   },
   "dependencies": {
     "angular-ui-router": "~0.2.18",
-    "pouchdb": "^5.3.2"
+    "pouchdb": "^5.3.2",
+    "angular-bcrypt": "^1.0.0",
+    "angular-cryptography": "^1.0.1",
+    "angular-uuid4": "^0.3.1"
   },
   "resolutions": {
     "angular-ui-router": "0.2.13"
