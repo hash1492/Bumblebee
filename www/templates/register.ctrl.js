@@ -2,15 +2,18 @@
 
   var app = angular.module('bumblebee');
 
-  app.controller('RegisterController',['$scope','GeneralService','$state',
-  function($scope, GeneralService, $state) {
+  app.controller('RegisterController',['$scope','GeneralService','$state','$ionicHistory','ionicToast',
+  function($scope, GeneralService, $state, $ionicHistory, ionicToast) {
+
+    $ionicHistory.clearHistory();
+
     $scope.user = {};
 
     $scope.register = function() {
       console.log("register called");
 
       if($scope.user.password !== $scope.user.confirm_password){
-        alert("Passwords don't match");
+        ionicToast.show("Passwords don't match", 'bottom', false, 2500);
         return;
       }
 

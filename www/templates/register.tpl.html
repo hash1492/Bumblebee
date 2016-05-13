@@ -1,5 +1,5 @@
 <form name="myForm">
-  <h2>Register</h2>
+  <h2 class="text-center">Register</h2>
   <div class="list list-inset">
     <label class="item item-input">
       <input type="email" ng-model="user.email" placeholder="Email" required>
@@ -12,10 +12,10 @@
       <input type="password" ng-model="user.confirm_password" ng-minlength="6" placeholder="Confirm Master Password" required>
     </label>
 
-    <button ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="register()" class="button button-positive" >
+    <button ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="register()" class="button button-block button-positive" >
       Register
     </button>
 
-    <a href="" ng-click="gotoLogin()">Already a user?</a>
+    <a href="" class="text-center" ng-click="gotoLogin()">Already a user?</a>
   </div>
 </form>

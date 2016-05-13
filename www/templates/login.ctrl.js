@@ -2,8 +2,8 @@
 
   var app = angular.module('bumblebee');
 
-  app.controller('LoginController',['$scope','GeneralService','$state','StorageService','bcrypt','$ionicHistory',
-  function($scope, GeneralService, $state, StorageService, bcrypt, $ionicHistory) {
+  app.controller('LoginController',['$scope','GeneralService','$state','StorageService','bcrypt','$ionicHistory','ionicToast',
+  function($scope, GeneralService, $state, StorageService, bcrypt, $ionicHistory, ionicToast) {
 
     $ionicHistory.clearHistory();
 
@@ -40,7 +40,7 @@
             }
             // Password is incorrect
             else{
-              alert("Incorrect password");
+              ionicToast.show("Incorrect password", 'bottom', false, 2500);
             }
         });
       }
@@ -64,10 +64,10 @@
             $state.go("app.dashboard");
           }
           else if(response.data.code == "INCORRECT_PASSWORD"){
-            alert("Incorrect password");
+            ionicToast.show("Incorrect password", 'bottom', false, 2500);
           }
           else if(response.data.code == "INVALID_EMAIL"){
-            alert("User doesn't exist");
+            ionicToast.show("User doesn't exist", 'bottom', false, 2500);
           }
         })
         .catch(function(err) {

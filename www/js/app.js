@@ -4,7 +4,17 @@
 // 'bumblebee' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 (function() {
-  var app = angular.module('bumblebee', ['ionic','ui.router','bumblebee.storage','dtrw.bcrypt','mdo-angular-cryptography','uuid4']);
+  var app = angular.module('bumblebee', [
+    'ionic',
+    'ui.router',
+    'bumblebee.storage',
+    'dtrw.bcrypt',
+    'mdo-angular-cryptography',
+    'uuid4',
+    'ionic-toast',
+    'ion-floating-menu',
+    'ionic.ion.autoListDivider'
+  ]);
 
   app.config(function($stateProvider,$urlRouterProvider) {
     $stateProvider
@@ -67,6 +77,30 @@
       templateUrl: 'templates/password-generator.tpl.html',
       controller: 'PasswordGeneratorController',
       cache: false
+    })
+    .state("app.notes-list",{
+      url: '/notes-list',
+      templateUrl: 'templates/notes-list.tpl.html',
+      controller: 'NotesListController',
+      cache: false
+    })
+    .state("app.add-note",{
+      url: '/add-note',
+      templateUrl: 'templates/add-update-note.tpl.html',
+      controller: 'AddUpdateNoteController',
+      cache: false
+    })
+    .state("app.update-note",{
+      url: '/update-note/:note_id',
+      templateUrl: 'templates/add-update-note.tpl.html',
+      controller: 'AddUpdateNoteController',
+      cache: false
+    })
+    .state("app.view-note",{
+      url: '/view-note/:note_id',
+      templateUrl: 'templates/view-note.tpl.html',
+      controller: 'ViewNoteController',
+      cache: false
     });
 
     // Instead
@@ -76,44 +110,44 @@
   	});
   });
 
-  app.config(['$httpProvider','StorageServiceProvider',
-    function ($httpProvider,StorageServiceProvider) {
-
-      var interceptor = [
-      function () {
-        return {
-          request: function (config) {
-
-            if(config.url.indexOf("http://localhost:1337") > -1){
-              // Check if the localstorage has bumblebee_session
-              var bumblebee_session = {};
-              if(StorageServiceProvider.get("bumblebee_session")){
-                bumblebee_session = JSON.parse(StorageServiceProvider.get("bumblebee_session"));
-              }
-              else {
-                bumblebee_session = null;
-              }
-
-              // Check if the token exists. If so, add it to the request header
-              if(bumblebee_session && bumblebee_session.token){
-                config.headers.authorization = bumblebee_session.token;
-              }
-            }
-            return config;
-          },
-
-          response: function (result) {
-            return result;
-          },
-
-          responseError: function (rejection) {
-
-          }
-        };
-      }];
-      $httpProvider.interceptors.push(interceptor);
-    }
-  ]);
+  // app.config(['$httpProvider','StorageServiceProvider',
+  //   function ($httpProvider,StorageServiceProvider) {
+  //
+  //     var interceptor = [
+  //     function () {
+  //       return {
+  //         request: function (config) {
+  //
+  //           if(config.url.indexOf("http://localhost:1337") > -1){
+  //             // Check if the localstorage has bumblebee_session
+  //             var bumblebee_session = {};
+  //             if(StorageServiceProvider.get("bumblebee_session")){
+  //               bumblebee_session = JSON.parse(StorageServiceProvider.get("bumblebee_session"));
+  //             }
+  //             else {
+  //               bumblebee_session = null;
+  //             }
+  //
+  //             // Check if the token exists. If so, add it to the request header
+  //             if(bumblebee_session && bumblebee_session.token){
+  //               config.headers.authorization = bumblebee_session.token;
+  //             }
+  //           }
+  //           return config;
+  //         },
+  //
+  //         response: function (result) {
+  //           return result;
+  //         },
+  //
+  //         responseError: function (rejection) {
+  //
+  //         }
+  //       };
+  //     }];
+  //     $httpProvider.interceptors.push(interceptor);
+  //   }
+  // ]);
 
   app.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {

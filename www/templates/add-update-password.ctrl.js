@@ -2,8 +2,8 @@
 
   var app = angular.module('bumblebee');
 
-  app.controller('AddUpdatePasswordController',['$scope','GeneralService','$state','StorageService','$stateParams','pouchdb','bcrypt','$crypto','uuid4',
-  function($scope, GeneralService, $state, StorageService, $stateParams, pouchdb, bcrypt, $crypto, uuid4) {
+  app.controller('AddUpdatePasswordController',['$scope','GeneralService','$state','StorageService','$stateParams','pouchdb','bcrypt','$crypto','uuid4','ionicToast','$ionicPopup',
+  function($scope, GeneralService, $state, StorageService, $stateParams, pouchdb, bcrypt, $crypto, uuid4, ionicToast, $ionicPopup) {
 
 
     $scope.password = {};
@@ -34,13 +34,19 @@
 
 
     $scope.savePassword = function() {
-      $scope.password.doc_type = "password";
-      $scope.password.pass_key = uuid4.generate();
-      $scope.password.password = $crypto.encrypt($scope.password.password, $scope.password.pass_key);
-      console.log($scope.password);
-      user_db.post($scope.password)
+      var password = angular.copy($scope.password);
+      password.doc_type = "password";
+      password.pass_key = uuid4.generate();
+      password.password = $crypto.encrypt(password.password,password.pass_key);
+      console.log(password);
+
+      if(!$scope.edit_mode){
+        password._id = "password_" + uuid4.generate();
+      }
+      user_db.put(password)
       .then(function (response) {
         console.log(response);
+        ionicToast.show('Password saved', 'bottom', false, 2500);
         $scope.gotoPasswordsList();
       }).catch(function (err) {
           console.log(err);
@@ -59,6 +65,30 @@
         $scope.password_input_type = "text";
       }
     };
+
+    // A confirm dialog
+   $scope.deletePassword = function() {
+     var confirmPopup = $ionicPopup.confirm({
+       title: 'Delete Password',
+       template: 'Are you sure?'
+     });
+
+     confirmPopup.then(function(res) {
+       if(res) {
+         console.log('You are sure');
+         user_db.remove($scope.password)
+         .then(function (result) {
+            // handle result
+            ionicToast.show("Password deleted", 'bottom', false, 2500);
+            $scope.gotoPasswordsList();
+          }).catch(function (err) {
+            console.log(err);
+          });
+       } else {
+         console.log('You are not sure');
+       }
+     });
+   };
 
   }]);
 

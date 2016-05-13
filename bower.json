@@ -9,9 +9,14 @@
     "pouchdb": "^5.3.2",
     "angular-bcrypt": "^1.0.0",
     "angular-cryptography": "^1.0.1",
-    "angular-uuid4": "^0.3.1"
+    "angular-uuid4": "^0.3.1",
+    "ionic-toast": "^0.2.0",
+    "ion-floating-menu": "^1.0.1"
   },
   "resolutions": {
-    "angular-ui-router": "0.2.13"
+    "angular-ui-router": "0.2.13",
+    "angular-animate": "1.4.3",
+    "angular": "1.4.3",
+    "angular-sanitize": "1.4.3"
   }
 }

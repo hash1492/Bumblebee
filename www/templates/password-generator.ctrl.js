@@ -2,8 +2,8 @@
 
   var app = angular.module('bumblebee');
 
-  app.controller('PasswordGeneratorController',['$scope','$state','$stateParams','pouchdb','StorageService','$crypto','$cordovaClipboard',
-  function($scope, $state, $stateParams, pouchdb, StorageService, $crypto, $cordovaClipboard) {
+  app.controller('PasswordGeneratorController',['$scope','$state','$stateParams','pouchdb','StorageService','$crypto','$cordovaClipboard','ionicToast',
+  function($scope, $state, $stateParams, pouchdb, StorageService, $crypto, $cordovaClipboard, ionicToast) {
 
     var letters = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ";
 
@@ -45,7 +45,7 @@
         $cordovaClipboard
         .copy($scope.password.value)
         .then(function () {
-          alert("password copied to clipboard!");
+          ionicToast.show("Copied to clipboard", 'bottom', false, 2500);
         }, function () {
           // error
         });

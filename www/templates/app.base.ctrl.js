@@ -47,6 +47,24 @@
       $state.go("app.password-generator");
     };
 
+    $scope.gotoNotesList = function() {
+      $state.go("app.notes-list");
+    };
+
+    $scope.gotoAddNote = function () {
+      $state.go("app.add-note");
+    };
+
+    $scope.gotoUpdateNote = function(note_id) {
+      $state.go("app.update-note", {note_id: note_id});
+    };
+
+    $scope.gotoViewNote = function(note_id) {
+      $state.go("app.view-note",{note_id: note_id});
+    };
+
+
+
   }]);
 
 })();

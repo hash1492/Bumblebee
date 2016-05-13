@@ -1,0 +1,24 @@
+<div class="bar bar-header bar-calm">
+  <button class="button button-icon icon ion-navicon" menu-toggle></button>
+  <div class="h1 title">Secure Notes</div>
+  <!-- <button class="button button-clear button-positive">Edit</button> -->
+</div>
+
+<ion-floating-button click="gotoAddNote()" has-footer="false" button-color="#11c1f3" icon="ion-plus" iconColor="#fff">
+</ion-floating-button>
+
+<ion-content class="has-header has-footer">
+  <!-- <div ng-repeat="letter in letters">
+    <div class="item item-divider" ng-bind="letter">
+      A
+    </div>
+    <div class="list card" ng-repeat="note in notes" ng-if="note.doc.name.charAt(0).toUpperCase() == letter">
+      <a href="" class="item item-icon-left" ng-click="gotoViewNote(note.doc._id)">
+        <i class="icon ion-home"></i>
+        <span ng-bind="note.doc.name"></span>
+      </a>
+    </div>
+  </div> -->
+
+  <ion-item ng-click="gotoViewNote(note.doc._id)" auto-list-divider auto-list-divider-value="{{note.doc.name}}" ng-repeat="note in notes" ng-bind="note.doc.name"></ion-item>
+</ion-content>

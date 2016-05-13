@@ -8,6 +8,8 @@
     console.log($stateParams);
     var password_id = $stateParams.password_id;
 
+    $scope.show_password = false;
+
     var user_db = new PouchDB(JSON.parse(StorageService.get("bumblebee_session")).db_name);
 
     user_db.get(password_id).then(function (doc) {

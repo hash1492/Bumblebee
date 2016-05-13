@@ -1,1 +1,16 @@
-dashboard
+<div class="bar bar-header bar-calm">
+  <button class="button button-icon icon ion-navicon" menu-toggle></button>
+  <div class="h1 title">Dashboard</div>
+  <!-- <button class="button button-clear button-positive">Edit</button> -->
+</div>
+
+<ion-content class="has-header has-footer">
+
+  <a class="button button-outline icon-left ion-asterisk button-calm" ng-click="gotoPasswordsList()">
+    <span ng-bind="user.passwords"></span> Passwords
+  </a>
+
+  <a class="button button-outline icon-left ion-document-text button-calm" ng-click="gotoNotesList()">
+    <span ng-bind="user.notes"></span> Notes
+  </a>
+</ion-content>
