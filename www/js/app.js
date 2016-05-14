@@ -6,6 +6,7 @@
 (function() {
   var app = angular.module('bumblebee', [
     'ionic',
+    'ngCordova',
     'ui.router',
     'bumblebee.storage',
     'dtrw.bcrypt',
@@ -101,12 +102,18 @@
       templateUrl: 'templates/view-note.tpl.html',
       controller: 'ViewNoteController',
       cache: false
+    })
+    .state("app.settings",{
+      url: '/settings',
+      templateUrl: 'templates/settings.tpl.html',
+      controller: 'SettingsController',
+      cache: false
     });
 
     // Instead
   	$urlRouterProvider.otherwise(function ($injector) {
   		var $state = $injector.get("$state");
-  		$state.go('login');
+  		$state.go('intro-slider');
   	});
   });
 
@@ -167,6 +174,7 @@
     });
   });
 
-  app.constant("REST_BASE_URL","http://localhost:1337");
+  // app.constant("REST_BASE_URL","http://localhost:1337");
+  app.constant("REST_BASE_URL","http://192.168.0.103:1337");
 
 })();

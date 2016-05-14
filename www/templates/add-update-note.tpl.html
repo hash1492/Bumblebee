@@ -3,7 +3,7 @@
   <div class="h1 title" ng-if="!edit_mode">Add Note</div>
   <div class="h1 title" ng-if="edit_mode">Edit Note</div>
   <!-- <button class="button button-clear button-positive">Edit</button> -->
-  <button class="button button-icon icon ion-trash-b" ng-click="deleteNote()"></button>
+  <button ng-if="edit_mode" class="button button-icon icon ion-trash-b" ng-click="deleteNote()"></button>
 </div>
 <ion-content class="has-header has-footer">
   <div class="list">

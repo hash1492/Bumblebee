@@ -14,6 +14,7 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -65,9 +66,10 @@
     <script src="templates/notes-list.ctrl.js"></script>
     <script src="templates/view-note.ctrl.js"></script>
     <script src="templates/add-update-note.ctrl.js"></script>
+    <script src="templates/settings.ctrl.js"></script>
 
   </head>
-  <body ng-app="bumblebee">
+  <body ng-app="bumblebee" id="app-body">
 
     <ion-nav-view></ion-nav-view>
   </body>

@@ -2,17 +2,29 @@
 
   var app = angular.module('bumblebee');
 
-  app.controller('AppBaseController',['$scope','pouchdb','StorageService','$state','$ionicHistory',
-   function($scope, pouchdb, StorageService, $state, $ionicHistory) {
+  app.controller('AppBaseController',['$scope','pouchdb','StorageService','$state','$ionicHistory','$rootScope','$interval',
+   function($scope, pouchdb, StorageService, $state, $ionicHistory, $rootScope, $interval) {
 
      if(!StorageService.get("bumblebee_session")){
        $state.go("login");
        return;
      }
 
+     var user_db = new PouchDB(JSON.parse(StorageService.get("bumblebee_session")).db_name);
+
+     var user_db_remote = new PouchDB("https://hash1492.cloudant.com/" + JSON.parse(StorageService.get("bumblebee_session")).db_name);
+
+     user_db.replicate.from(user_db_remote,{live:true},function(err){
+       console.log(err);
+     });
+
     $scope.logout = function() {
       StorageService.delete("bumblebee_session");
       $state.go("login");
+    };
+
+    $scope.gotoDashboard = function() {
+      $state.go("app.dashboard");
     };
 
     $scope.gotoPasswordsList = function() {
@@ -62,6 +74,46 @@
     $scope.gotoViewNote = function(note_id) {
       $state.go("app.view-note",{note_id: note_id});
     };
+
+    $scope.gotoSettings = function() {
+      $state.go("app.settings");
+    };
+
+    $scope.lockApp = function() {
+      // StorageService.delete("bumblebee_session");
+      $state.go("login");
+    };
+
+    var logout_timer = 30; // 30 Seconds
+
+    // reset the logout timer to 30 seconds
+    var resetLogoutTimer = function () {
+      logout_timer = 30;
+    };
+
+    // Handle the lock-app broadcasted event
+    $scope.$on('lock-app', function(event, args) {
+        $scope.lockApp();
+    });
+
+
+    // // After each second, decrement the timer count by 1 second
+    // $interval(function() {
+    //   logout_timer = logout_timer - 1;
+    //   $scope.timer_count = logout_timer;
+    //   if(logout_timer === 0){
+    //     $rootScope.$broadcast('lock-app');
+    //   }
+    // }, 1000);
+
+
+    // Add touch event listener to app body
+    var app_body = document.getElementById("app-body");
+    // On touch event, reset the logout timer
+    app_body.addEventListener("touchstart", function() {
+      resetLogoutTimer();
+    }, false);
+
 
 
 

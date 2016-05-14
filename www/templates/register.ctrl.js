@@ -2,8 +2,8 @@
 
   var app = angular.module('bumblebee');
 
-  app.controller('RegisterController',['$scope','GeneralService','$state','$ionicHistory','ionicToast',
-  function($scope, GeneralService, $state, $ionicHistory, ionicToast) {
+  app.controller('RegisterController',['$scope','GeneralService','$state','$ionicHistory','ionicToast','$ionicLoading',
+  function($scope, GeneralService, $state, $ionicHistory, ionicToast, $ionicLoading) {
 
     $ionicHistory.clearHistory();
 
@@ -11,6 +11,9 @@
 
     $scope.register = function() {
       console.log("register called");
+      $ionicLoading.show({
+        template: 'Registering...'
+      });
 
       if($scope.user.password !== $scope.user.confirm_password){
         ionicToast.show("Passwords don't match", 'bottom', false, 2500);
@@ -36,6 +39,7 @@
         //   console.log(err);
         // });
         var user_db = new PouchDB(response.data.db_name);
+        $ionicLoading.hide();
         $state.go("login");
       })
       .catch(function(err) {

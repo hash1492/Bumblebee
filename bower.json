@@ -11,7 +11,8 @@
     "angular-cryptography": "^1.0.1",
     "angular-uuid4": "^0.3.1",
     "ionic-toast": "^0.2.0",
-    "ion-floating-menu": "^1.0.1"
+    "ion-floating-menu": "^1.0.1",
+    "ngCordova": "^0.1.26-alpha"
   },
   "resolutions": {
     "angular-ui-router": "0.2.13",

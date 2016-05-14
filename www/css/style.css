@@ -1,1 +1,65 @@
 /* Empty. Add your own CSS if you like */
+
+
+
+/*Sidemenu CSS Start*/
+
+.main-sidemenu {
+  background-color: #0a9dc7;
+  color: #fff;
+}
+
+.profile-pic {
+  height: 160px;
+  background: #11c1f3;
+}
+
+.user-img {
+  width: 100px;
+  height: 100px;
+  background: #ddd;
+  margin: auto;
+  position: relative;
+  top: 20px;
+  border-radius: 100%;
+  border: 2px solid #fff;
+}
+
+.user-img img{
+  width: 95px;
+  height: 95px;
+  border-radius: 100%;
+}
+
+.user-name {
+  display: block;
+  text-align: center;
+  margin-top: 30px;
+  font-size: 1.2em;
+}
+
+
+.sidemenu-list {
+  color:#fff;
+}
+
+.sidemenu-list a:nth-child(odd){
+  background-color: #0aaedd;
+}
+
+.sidemenu-list a:nth-child(even){
+  background-color: #11c1f3;
+}
+.sidemenu-list .item{
+  border:none;
+}
+.sidemenu-list .item:active{
+  background-color: #0c2233;
+}
+/*Sidemenu CSS End*/
+
+
+.intro-img {
+  height: 29em;
+  padding: 1em;
+}
