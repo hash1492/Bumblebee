@@ -109,6 +109,12 @@
       templateUrl: 'templates/settings.tpl.html',
       controller: 'SettingsController',
       cache: false
+    })
+    .state("update-app",{
+      url: '/update-app',
+      templateUrl: 'templates/update-app.tpl.html',
+      // controller: 'SettingsController',
+      cache: false
     });
 
     // Instead
@@ -157,7 +163,7 @@
   //   }
   // ]);
 
-  app.run(function($ionicPlatform) {
+  app.run(function($ionicPlatform, GeneralService, $cordovaAppVersion,$state) {
     $ionicPlatform.ready(function() {
       if(window.cordova && window.cordova.plugins.Keyboard) {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -172,6 +178,27 @@
       if(window.StatusBar) {
         StatusBar.styleDefault();
       }
+
+      // Check if user has the latest app version installed. If no, show update app screen
+      GeneralService.getLatestAppVersion()
+      .then(function(response) {
+        console.log(response);
+        var latest_version = response.data.data.app_version;
+        $cordovaAppVersion.getVersionNumber().then(function (app_version) {
+          console.log(app_version);
+          // User has the latest app version
+          if(latest_version === app_version){
+
+          }
+          // User doesn't have the latest app version
+          else {
+            $state.go("update-app");
+          }
+        });
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
     });
   });
 

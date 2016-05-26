@@ -4,7 +4,7 @@
 
   app.factory('GeneralDataService', function($http, REST_BASE_URL) {
 
-    var _http_get = function () {
+    var _http_get = function (url) {
       return $http.get(REST_BASE_URL + url);
     };
 
