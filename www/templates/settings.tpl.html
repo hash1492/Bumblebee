@@ -12,7 +12,7 @@
         <i class="icon ion-locked"></i>
          Auto-Lock on exit
          <label class="toggle toggle-calm">
-           <input ng-model="settings.autolock_on_exit" type="checkbox">
+           <input ng-change="saveSettings()" ng-model="settings.autolock_on_exit" type="checkbox">
            <div class="track">
              <div class="handle"></div>
            </div>
@@ -24,7 +24,7 @@
         <div class="input-label">
           Auto-Lock after
         </div>
-        <select ng-model="settings.autolock_time" ng-options="time.value as time.time for time in time_vales" >
+        <select ng-change="saveSettings()" ng-model="settings.autolock_time" ng-options="time.value as time.time for time in time_values" >
 
         </select>
       </label>

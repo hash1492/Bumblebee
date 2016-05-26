@@ -1,21 +1,23 @@
 <ion-content>
+  <div class="padding">
+    <form name="myForm">
+      <h3 class="text-center">Login</h3>
+      <div class="list list-inset">
+        <label class="item item-input" ng-if="!logged_in">
+          <input type="email" ng-model="user.email" placeholder="Email" required>
+        </label>
+        <label class="item item-input">
+          <input type="password" ng-model="user.password" placeholder="Master Password" required ng-minlength="6">
+        </label>
 
-  <form name="myForm">
-    <h2 class="text-center">Login</h2>
-    <div class="list list-inset">
-      <label class="item item-input" ng-if="!logged_in">
-        <input type="email" ng-model="user.email" placeholder="Email" required>
-      </label>
-      <label class="item item-input">
-        <input type="password" ng-model="user.password" placeholder="Master Password" required ng-minlength="6">
-      </label>
+        <button class="button button-block button-calm" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="login()">
+          Login
+        </button>
 
-      <button class="button button-block button-calm" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="login()">
-        Login
-      </button>
+        <a href="" class="text-center" ng-click="gotoRegister()">New user?</a>
+      </div>
 
-      <a href="" class="text-center" ng-click="gotoRegister()">New user?</a>
-    </div>
+    </form>
+  </div>
 
-  </form>
 </ion-content>

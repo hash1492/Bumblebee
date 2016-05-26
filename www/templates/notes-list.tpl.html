@@ -19,6 +19,16 @@
       </a>
     </div>
   </div> -->
+  <div class="list list-inset">
+    <label class="item item-input">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="text" placeholder="Search Notes..." ng-model="search.name">
+    </label>
+  </div>
 
   <ion-item ng-click="gotoViewNote(note.doc._id)" auto-list-divider auto-list-divider-value="{{note.doc.name}}" ng-repeat="note in notes" ng-bind="note.doc.name"></ion-item>
+
+  <div class="card" ng-if="notes.length === 0">
+    <ion-item>No Notes</ion-item>
+  </div>
 </ion-content>

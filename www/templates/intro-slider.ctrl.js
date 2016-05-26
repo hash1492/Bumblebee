@@ -5,8 +5,14 @@
   app.controller('IntroSliderController',['$scope','$state','$ionicSlideBoxDelegate','StorageService',
   function($scope, $state, $ionicSlideBoxDelegate, StorageService) {
 
-    if(StorageService.get("intro_done") === true){
+    console.log(StorageService.get("intro_done"));
+    if(StorageService.get("intro_done") == "true" && StorageService.get("logged_in") !== "true"){
       $state.go("register");
+      return;
+    }
+
+    if(StorageService.get("intro_done") == "true" && StorageService.get("logged_in") === "true"){
+      $state.go("login");
       return;
     }
 

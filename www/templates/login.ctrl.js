@@ -2,8 +2,8 @@
 
   var app = angular.module('bumblebee');
 
-  app.controller('LoginController',['$scope','GeneralService','$state','StorageService','bcrypt','$ionicHistory','ionicToast','$ionicLoading',
-  function($scope, GeneralService, $state, StorageService, bcrypt, $ionicHistory, ionicToast, $ionicLoading) {
+  app.controller('LoginController',['$scope','GeneralService','$state','StorageService','bcrypt','$ionicHistory','ionicToast','$ionicLoading','$cordovaNetwork',
+  function($scope, GeneralService, $state, StorageService, bcrypt, $ionicHistory, ionicToast, $ionicLoading, $cordovaNetwork) {
 
     $ionicHistory.clearHistory();
 
@@ -34,7 +34,7 @@
             if(matching){
               var user_db = new PouchDB(JSON.parse(StorageService.get("bumblebee_session")).db_name);
 
-              var user_db_remote = new PouchDB("https://hash1492.cloudant.com/" + JSON.parse(StorageService.get("bumblebee_session")).db_name);
+              var user_db_remote = new PouchDB("https://hash1492:bumblebeepass@hash1492.cloudant.com/" + JSON.parse(StorageService.get("bumblebee_session")).db_name);
 
               user_db.replicate.from(user_db_remote,{live:true},function(err){
                 console.log(err);
@@ -53,36 +53,44 @@
 
       // If logging in for the first time, use remote master db for logging in
       else {
-        GeneralService.login($scope.user)
-        .then(function(response) {
-          console.log(response);
+
+        if($cordovaNetwork.isOnline()){
+          GeneralService.login($scope.user)
+          .then(function(response) {
+            console.log(response);
+            $ionicLoading.hide();
+            if(response.data.code == "LOGIN_SUCCESSFUL"){
+              StorageService.set("bumblebee_session", JSON.stringify(response.data.data));
+              StorageService.set("bumblebee_settings",JSON.stringify({autolock_on_exit: true,autolock_time: 30}));
+              StorageService.set("logged_in",true);
+
+              var user_db = new PouchDB(JSON.parse(StorageService.get("bumblebee_session")).db_name);
+
+              var user_db_remote = new PouchDB("https://hash1492:bumblebeepass@hash1492.cloudant.com/" + JSON.parse(StorageService.get("bumblebee_session")).db_name);
+
+              user_db.replicate.from(user_db_remote,{live:true},function(err){
+                console.log(err);
+              });
+
+              $state.go("app.dashboard");
+            }
+
+            else if(response.data.code == "INCORRECT_PASSWORD"){
+              ionicToast.show("Incorrect password", 'bottom', false, 2500);
+            }
+            else if(response.data.code == "INVALID_EMAIL"){
+              ionicToast.show("User doesn't exist", 'bottom', false, 2500);
+            }
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+        }
+        else {
           $ionicLoading.hide();
-          if(response.data.code == "LOGIN_SUCCESSFUL"){
-            StorageService.set("bumblebee_session", JSON.stringify(response.data.data));
-            StorageService.set("bumblebee_settings", {autolock_on_exit: true,autolock_time: 30000});
-            StorageService.set("logged_in",true);
+          ionicToast.show("Please connect to the internet", 'bottom', false, 2500);
+        }
 
-            var user_db = new PouchDB(JSON.parse(StorageService.get("bumblebee_session")).db_name);
-
-            var user_db_remote = new PouchDB("https://hash1492.cloudant.com/" + JSON.parse(StorageService.get("bumblebee_session")).db_name);
-
-            user_db.replicate.from(user_db_remote,{live:true},function(err){
-              console.log(err);
-            });
-
-            $state.go("app.dashboard");
-          }
-
-          else if(response.data.code == "INCORRECT_PASSWORD"){
-            ionicToast.show("Incorrect password", 'bottom', false, 2500);
-          }
-          else if(response.data.code == "INVALID_EMAIL"){
-            ionicToast.show("User doesn't exist", 'bottom', false, 2500);
-          }
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
       }
     };
 

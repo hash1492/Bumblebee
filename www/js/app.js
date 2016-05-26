@@ -23,7 +23,8 @@
       url: '/app',
       abstract: true,
       templateUrl: 'templates/app.base.tpl.html',
-      controller: 'AppBaseController'
+      controller: 'AppBaseController',
+      cache: false
     })
     .state("login",{
       url: '/login',
@@ -175,6 +176,6 @@
   });
 
   // app.constant("REST_BASE_URL","http://localhost:1337");
-  app.constant("REST_BASE_URL","http://192.168.0.103:1337");
+  app.constant("REST_BASE_URL","https://bumblebee-rest.herokuapp.com");
 
 })();
