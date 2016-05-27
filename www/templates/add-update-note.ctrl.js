@@ -58,7 +58,9 @@
     $scope.deleteNote = function() {
       var confirmPopup = $ionicPopup.confirm({
         title: 'Delete Note',
-        template: 'Are you sure?'
+        template: 'Are you sure?',
+        okText: 'Yes',
+        cancelText: 'No'
       });
 
       confirmPopup.then(function(res) {

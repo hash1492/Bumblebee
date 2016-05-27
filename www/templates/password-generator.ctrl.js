@@ -9,7 +9,7 @@
 
     var digits = "0123456789";
 
-    var symbols = "@#$%";
+    var symbols = "@#$%!&?";
 
     $scope.password = {
       letters: true,
