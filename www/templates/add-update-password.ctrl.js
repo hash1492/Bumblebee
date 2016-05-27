@@ -2,8 +2,8 @@
 
   var app = angular.module('bumblebee');
 
-  app.controller('AddUpdatePasswordController',['$scope','GeneralService','$state','StorageService','$stateParams','pouchdb','bcrypt','$crypto','uuid4','ionicToast','$ionicPopup','$ionicLoading',
-  function($scope, GeneralService, $state, StorageService, $stateParams, pouchdb, bcrypt, $crypto, uuid4, ionicToast, $ionicPopup, $ionicLoading) {
+  app.controller('AddUpdatePasswordController',['$scope','GeneralService','$state','StorageService','$stateParams','pouchdb','bcrypt','$crypto','uuid4','ionicToast','$ionicPopup','$ionicLoading','$ionicHistory',
+  function($scope, GeneralService, $state, StorageService, $stateParams, pouchdb, bcrypt, $crypto, uuid4, ionicToast, $ionicPopup, $ionicLoading, $ionicHistory) {
 
 
     $scope.password = {};
@@ -51,13 +51,12 @@
         console.log(response);
         $ionicLoading.hide();
         ionicToast.show('Password saved', 'bottom', false, 2500);
+
+        // Replicate to remote
+        GeneralService.replicateToRemote();
         $scope.gotoPasswordsList();
       }).catch(function (err) {
           console.log(err);
-      });
-
-      user_db.replicate.to(user_db_remote,{live:true},function(err){
-        console.log(err);
       });
     };
 
@@ -74,7 +73,9 @@
    $scope.deletePassword = function() {
      var confirmPopup = $ionicPopup.confirm({
        title: 'Delete Password',
-       template: 'Are you sure?'
+       template: 'Are you sure?',
+       okText: 'Yes',
+       cancelText: 'No'
      });
 
      confirmPopup.then(function(res) {
@@ -94,6 +95,25 @@
           });
        } else {
          console.log('You are not sure');
+       }
+     });
+   };
+
+   $scope.goBack = function () {
+     var confirmPopup = $ionicPopup.confirm({
+       title: 'Discard changes',
+       template: 'Are you sure?',
+       okText: 'Yes',
+       cancelText: 'No'
+     });
+
+     confirmPopup.then(function(res) {
+       if(res) {
+         console.log('You are sure');
+         $ionicHistory.goBack();
+       } else {
+         console.log('You are not sure');
+         confirmPopup.close();
        }
      });
    };

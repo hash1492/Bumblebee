@@ -2,8 +2,8 @@
 
   var app = angular.module('bumblebee');
 
-  app.controller('AddUpdateNoteController',['$scope','GeneralService','$state','StorageService','$stateParams','pouchdb','bcrypt','$crypto','uuid4','ionicToast','$ionicPopup','$ionicLoading',
-  function($scope, GeneralService, $state, StorageService, $stateParams, pouchdb, bcrypt, $crypto, uuid4, ionicToast, $ionicPopup, $ionicLoading) {
+  app.controller('AddUpdateNoteController',['$scope','GeneralService','$state','StorageService','$stateParams','pouchdb','bcrypt','$crypto','uuid4','ionicToast','$ionicPopup','$ionicLoading','$ionicHistory',
+  function($scope, GeneralService, $state, StorageService, $stateParams, pouchdb, bcrypt, $crypto, uuid4, ionicToast, $ionicPopup, $ionicLoading, $ionicHistory) {
 
     $scope.note = {};
 
@@ -46,13 +46,12 @@
         console.log(response);
         $ionicLoading.hide();
         ionicToast.show('Note saved', 'bottom', false, 2500);
+
+        // Replicate to remote
+        GeneralService.replicateToRemote();
         $scope.gotoNotesList();
       }).catch(function (err) {
           console.log(err);
-      });
-
-      user_db.replicate.to(user_db_remote,{live:true},function(err){
-        console.log(err);
       });
     };
 
@@ -79,6 +78,25 @@
            });
         } else {
           console.log('You are not sure');
+        }
+      });
+    };
+
+    $scope.goBack = function () {
+      var confirmPopup = $ionicPopup.confirm({
+        title: 'Discard changes',
+        template: 'Are you sure?',
+        okText: 'Yes',
+        cancelText: 'No'
+      });
+
+      confirmPopup.then(function(res) {
+        if(res) {
+          console.log('You are sure');
+          $ionicHistory.goBack();
+        } else {
+          console.log('You are not sure');
+          confirmPopup.close();
         }
       });
     };

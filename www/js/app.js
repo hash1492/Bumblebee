@@ -118,10 +118,10 @@
     });
 
     // Instead
-  	$urlRouterProvider.otherwise(function ($injector) {
-  		var $state = $injector.get("$state");
-  		$state.go('login');
-  	});
+  	// $urlRouterProvider.otherwise(function ($injector) {
+  	// 	var $state = $injector.get("$state");
+  	// 	$state.go('login');
+  	// });
   });
 
   // app.config(['$httpProvider','StorageServiceProvider',

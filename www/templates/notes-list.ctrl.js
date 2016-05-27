@@ -5,7 +5,7 @@
   app.controller('NotesListController',['$scope','GeneralService','$state','StorageService',
   function($scope, GeneralService, $state, StorageService) {
 
-    // $scope.letters =  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    $scope.letters =  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
     $scope.notes = [];
 
@@ -28,6 +28,18 @@
     }).catch(function(err) {
         console.log(err);
     });
+
+
+    $scope.showLetterGroup = function(letter) {
+      var show_letter = false;
+      $scope.notes.forEach(function(note) {
+
+        if(note.doc.name.charAt(0).toUpperCase() === letter){
+          show_letter = true;
+        }
+      });
+      return show_letter;
+    };
 
   }]);
 

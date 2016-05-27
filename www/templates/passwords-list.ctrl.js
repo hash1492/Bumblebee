@@ -2,10 +2,10 @@
 
   var app = angular.module('bumblebee');
 
-  app.controller('PasswordsListController',['$scope','$state','pouchdb','StorageService',
-  function($scope, $state, pouchdb, StorageService) {
+  app.controller('PasswordsListController',['$scope','$state','pouchdb','StorageService','$ionicPopup',
+  function($scope, $state, pouchdb, StorageService, $ionicPopup) {
 
-    // $scope.letters =  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    $scope.letters =  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
     $scope.search = "";
 
@@ -30,6 +30,17 @@
     }).catch(function(err) {
         console.log(err);
     });
+
+    $scope.showLetterGroup = function(letter) {
+      var show_letter = false;
+      $scope.passwords.forEach(function(password) {
+
+        if(password.doc.name.charAt(0).toUpperCase() === letter){
+          show_letter = true;
+        }
+      });
+      return show_letter;
+    };
 
   }]);
 

@@ -5,10 +5,10 @@
       <h3 class="text-center">Login</h3>
       <div class="list list-inset">
         <label class="item item-input" ng-if="!logged_in">
-          <input type="email" ng-model="user.email" placeholder="Email" required>
+          <input style="font-size: 1.2em;" type="email" ng-model="user.email" placeholder="Email" required>
         </label>
         <label class="item item-input">
-          <input type="password" ng-model="user.password" placeholder="Master Password" required ng-minlength="6">
+          <input style="font-size: 1.2em;" type="password" ng-model="user.password" placeholder="Master Password" required ng-minlength="6">
         </label>
 
         <button class="button button-block button-calm" ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="login()">

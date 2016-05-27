@@ -6,14 +6,14 @@
       <h3 class="text-center">Register</h3>
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="email" ng-model="user.email" placeholder="Email" required>
+          <input style="font-size: 1.2em;" type="email" ng-model="user.email" placeholder="Email" required>
         </label>
         <label class="item item-input">
-          <input type="password" ng-model="user.password" ng-minlength="6" placeholder="Master Password" required>
+          <input style="font-size: 1.2em;" type="password" ng-model="user.password" ng-minlength="6" placeholder="Master Password" required>
         </label>
 
         <label class="item item-input">
-          <input type="password" ng-model="user.confirm_password" ng-minlength="6" placeholder="Confirm Master Password" required>
+          <input style="font-size: 1.2em;" type="password" ng-model="user.confirm_password" ng-minlength="6" placeholder="Confirm Master Password" required>
         </label>
 
         <button ng-disabled="myForm.$pristine || myForm.$invalid" ng-click="register()" class="button button-block button-calm" >
