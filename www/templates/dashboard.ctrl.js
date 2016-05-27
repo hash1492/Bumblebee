@@ -16,7 +16,8 @@
 
     user_db.allDocs({
       include_docs: true,
-      startkey: 'secure_note'
+      startkey: 'secure_note',
+      endkey: 'secure_note\uffff'
     })
     .then(function(result) {
        console.log(result);
@@ -27,7 +28,8 @@
 
     user_db.allDocs({
       include_docs: true,
-      startkey: 'password'
+      startkey: 'password',
+      endkey: 'password\uffff'
     })
     .then(function(result) {
        console.log(result);

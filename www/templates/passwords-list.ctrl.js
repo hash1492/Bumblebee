@@ -7,9 +7,7 @@
 
     // $scope.letters =  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
-    $scope.search = {
-      name: ""
-    };
+    $scope.search = "";
 
     $scope.passwords = [];
 
@@ -18,7 +16,8 @@
 
     user_db.allDocs({
       include_docs: true,
-      startkey: 'password'
+      startkey: 'password',
+      endkey: 'password\uffff'
     })
     .then(function(result) {
        console.log(result);

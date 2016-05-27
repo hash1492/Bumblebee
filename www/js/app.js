@@ -120,7 +120,7 @@
     // Instead
   	$urlRouterProvider.otherwise(function ($injector) {
   		var $state = $injector.get("$state");
-  		$state.go('intro-slider');
+  		$state.go('login');
   	});
   });
 
@@ -163,7 +163,7 @@
   //   }
   // ]);
 
-  app.run(function($ionicPlatform, GeneralService, $cordovaAppVersion,$state) {
+  app.run(function($ionicPlatform, GeneralService, $cordovaAppVersion,$state, StorageService) {
     $ionicPlatform.ready(function() {
       if(window.cordova && window.cordova.plugins.Keyboard) {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -179,6 +179,17 @@
         StatusBar.styleDefault();
       }
 
+      var session = JSON.parse(StorageService.get("bumblebee_settings"));
+      var logged_in = JSON.parse(StorageService.get("logged_in"));
+
+      $ionicPlatform.on("pause", function() {
+        console.log("paused");
+        // Check if user has set "Autolock on exit" to true
+        if(session && logged_in && session.autolock_on_exit === true){
+          $state.go("login");
+        }
+      });
+
       // Check if user has the latest app version installed. If no, show update app screen
       GeneralService.getLatestAppVersion()
       .then(function(response) {
@@ -186,13 +197,19 @@
         var latest_version = response.data.data.app_version;
         $cordovaAppVersion.getVersionNumber().then(function (app_version) {
           console.log(app_version);
-          // User has the latest app version
-          if(latest_version === app_version){
-
-          }
           // User doesn't have the latest app version
-          else {
+          if(latest_version !== app_version){
             $state.go("update-app");
+          }
+          else {
+            // Go to intro slider if intro isn't done
+            if(StorageService.get("intro_done") !== "true"){
+              $state.go("intro-slider");
+            }
+            else {
+              $state.go("login");
+            }
+
           }
         });
       })

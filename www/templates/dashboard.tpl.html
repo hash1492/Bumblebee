@@ -4,16 +4,16 @@
   <!-- <button class="button button-clear button-positive">Edit</button> -->
 </div>
 
-<ion-content class="has-header has-footer">
+<ion-content class="padding has-header">
 
-  <a class="button button-outline icon-left ion-asterisk button-calm" ng-click="gotoPasswordsList()">
-    <span ng-bind="user.passwords"></span> Passwords
+  <a style="display: block;width: 175px;margin: 0 auto 10px;" class="button button-outline icon-left ion-asterisk button-calm" ng-click="gotoPasswordsList()">
+    <span ng-bind="user.passwords"></span> Password(s)
   </a>
 
-  <a class="button button-outline icon-left ion-document-text button-calm" ng-click="gotoNotesList()">
-    <span ng-bind="user.notes"></span> Notes
+  <a style="display: block;width: 175px;margin: 0 auto 10px;" class="button button-outline icon-left ion-document-text button-calm" ng-click="gotoNotesList()">
+    <span ng-bind="user.notes"></span> Note(s)
   </a>
 
 
-  timer <span ng-bind="timer_count"></span>
+  <!-- timer <span ng-bind="timer_count"></span> -->
 </ion-content>
